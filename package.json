@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/centralized-news/centralized.news/issues"
   },
-  "homepage": "https://github.com/centralized-news/centralized.news#readme"
+  "homepage": "https://github.com/centralized-news/centralized.news#readme",
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "path": "^0.12.7"
+  }
 }
