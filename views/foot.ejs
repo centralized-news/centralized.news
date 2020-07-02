@@ -2,33 +2,41 @@
     <footer class="pt-4 my-md-5 pt-md-5 border-top footer mt-auto py-3">
         <div class="row">
             <div class="col-6 col-md">
-                <h5>Features</h5>
+                <h5>Site</h5>
                 <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Cool stuff</a></li>
-                    <li><a class="text-muted" href="#">Random feature</a></li>
-                    <li><a class="text-muted" href="#">Team feature</a></li>
-                    <li><a class="text-muted" href="#">Stuff for developers</a></li>
-                    <li><a class="text-muted" href="#">Another one</a></li>
-                    <li><a class="text-muted" href="#">Last time</a></li>
+                    <!-- generate a new sitemap here: https://www.xml-sitemaps.com/ -->
+                    <li><a class="text-muted" href="/sitemap.xml">Sitemap</a></li>
+                    <li><a class="text-muted" href="/status">Satus</a></li>
+                    <li><a class="text-muted" href="/privacy">Privacy</a></li>
+                    <li><a class="text-muted" href="/terms">Terms</a></li>
+                    <li><a class="text-muted" href="/developer">Developers</a></li>
                 </ul>
             </div>
             <div class="col-6 col-md">
-                <h5>Resources</h5>
+                <h5>Company</h5>
                 <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Resource</a></li>
-                    <li><a class="text-muted" href="#">Resource name</a></li>
-                    <li><a class="text-muted" href="#">Another resource</a></li>
-                    <li><a class="text-muted" href="#">Final resource</a></li>
+                    <li><a class="text-muted" href="/about">About</a></li>
+                    <li><a class="text-muted" href="/jobs">Work with us</a></li>
+                    <li><a class="text-muted" href="/apply">Apply to write</a></li>
                 </ul>
             </div>
             <div class="col-6 col-md">
-                <h5>About</h5>
+                <h5>Writers</h5>
                 <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Team</a></li>
-                    <li><a class="text-muted" href="#">Locations</a></li>
-                    <li><a class="text-muted" href="#">Privacy</a></li>
-                    <li><a class="text-muted" href="#">Terms</a></li>
+                    <li><a class="text-muted" href="/writers">Writers</a></li>
+                    <li><a class="text-muted" href="/writers/new">New article</a></li>
+                    <li><a class="text-muted" href="/api/examples#writers">New article API</a></li>
                 </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Contact</h5>
+                <form action=/api/contact>
+                    <input style="float: left; width: 48%;" type="text" name="name" placeholder="name">
+                    <input style="float: right; width: 48%;" type="email" name="email" placeholder="email">
+                    <br><br>
+                    <textarea style="width: 100%" rows="3" type="text" name="message" placeholder="message"></textarea>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </form>
             </div>
         </div>
     </footer>

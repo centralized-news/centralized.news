@@ -24,11 +24,11 @@
     
     <div class="editor-wrapper">
         <form action="/writers/publish">
-            <input class="title" type="text" placeholder="Title" name="title" />
-            <input type="text" id="editor" placeholder="Body" name="body" />
-            <button class="btn btn-primary" style="float: left;">Publish</button>
+            <input class="title" type="text" name="title" value="<%- title %>" />
+            <input type="text" id="editor" placeholder="Body" name="body" value="<%- body %>" />
         </form>
     </div>
+    <button class="btn btn-primary" style="float: left;">Publish</button>
 
     <div>
     </div>

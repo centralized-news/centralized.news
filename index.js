@@ -13,6 +13,7 @@ const site_port = process.env.BASEURL + port
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(require('express-status-monitor')());
 app.use(flash());
 
 // app routes
@@ -45,16 +46,22 @@ app.get('/donate', function (req, res, next) {
         devTest: 'dev_search',
         name: process.env.NAME
     };
+    const logData = ({path: about.templateName})
+    console.log(logData)
     return res.render('base', about);
 });
 
 app.get('/writers/new', function (req, res, next) {
-    const terms = req.query.q
+    const title = req.query.title
+    const body = req.query.body
+
     const about = {
         title: 'Donate - ' + process.env.NAME,
         templateName: 'writers/editor',
         devTest: 'dev_search',
-        name: process.env.NAME
+        name: process.env.NAME,
+        body: body,
+        title: title
     };
     return res.render('base', about);
 });
