@@ -1,0 +1,28 @@
+{
+  "name": "centralized.news",
+  "version": "0.0.1",
+  "description": "Centralized News is a news station that gives from both main point of viewse, Democratic, and Republican. We don't lean either way, that is why we will be interviewing random people and their views.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/centralized-news/centralized.news.git"
+  },
+  "author": "Centralized News",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/centralized-news/centralized.news/issues"
+  },
+  "homepage": "https://github.com/centralized-news/centralized.news#readme",
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "login-plus": "^1.5.7",
+    "mongodb": "^3.5.9",
+    "path": "^0.12.7"
+  }
+}

@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/editor/0.1.0/editor.css">
+<style>
+    .container {
+        max-width: 680px;
+    }
+</style>
+
+<div>
+
+    <div>
+        <h5>
+            Editor
+        </h5>
+        <div class="container">
+            <p>
+                Below, you can write articles. To see the syntax, click the 'i' icon in the editor.
+            </p>
+        </div>
+    </div>
+    
+    <div>
+        <hr>
+    </div>
+    
+    <div class="editor-wrapper">
+        <form action="/writers/publish">
+            <input class="title" type="text" placeholder="Title" name="title" />
+            <input type="text" id="editor" placeholder="Body" name="body" />
+            <button class="btn btn-primary" style="float: left;">Publish</button>
+        </form>
+    </div>
+
+    <div>
+    </div>
+
+</div>
+
+
+<script src="//cdn.jsdelivr.net/editor/0.1.0/editor.js"></script>
+<script src="//cdn.jsdelivr.net/editor/0.1.0/marked.js"></script>
+<script>
+    const editor = new Editor({
+        element: document.getElementById('editor')
+    });
+
+    editor.render();
+
+    const content = editor.codemirror.getValue();
+</script>
