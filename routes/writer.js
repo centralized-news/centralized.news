@@ -20,16 +20,4 @@ router.get('/new', function (req, res, next) {
     return res.render('base', about);
 });
 
-router.get('/publish', function (req, res, next) {
-    const title = req.query.title
-    const body = req.query.body
-    const about = {
-        title: 'Donate - ' + process.env.NAME,
-        templateName: 'writers/publisher',
-        devTest: 'dev_search',
-        name: process.env.NAME
-    };
-    return res.render('base', about);
-});
-
 module.exports = router

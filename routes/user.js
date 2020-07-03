@@ -1,20 +1,23 @@
 const express = require('express');
 const router = express.Router()
-const article = require('../models/Article')
+const Users = require('../models/User')
 
 router.get('/', async function (req, res, next) {
-    const id = req.query.id
-    const posts = await article.findById(id)
-    console.log(posts)
-    const about = {
-        title: posts.title,
-        articleTitle: posts.title,
-        articleBody: posts.body,
-        templateName: 'public/article',
-        devTest: 'dev_article',
-        name: process.env.NAME
-    };
-    return res.render('base', about);
+    try{
+        const id = req.query.id
+        const posts = await Users.find(id)
+        const about = {
+            title: posts[0].title,
+            articleTitle: posts[0].title,
+            articleBody: posts[0].body,
+            templateName: 'public/article',
+            devTest: 'dev_article',
+            name: process.env.NAME
+        };
+        return res.render('base', about);
+    }catch (err) {
+        res.json(err)
+    }
 });
 
 router.post('/', async function (req, res, next) {
