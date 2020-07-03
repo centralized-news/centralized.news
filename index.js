@@ -2,19 +2,27 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const flash = require('connect-flash');
-const MongoClient = require('mongodb').MongoClient;
+const mongoose = require('mongoose')
 require('dotenv').config()
 
 // const configs
 const port = process.env.PORT || 5555
 const site_port = process.env.BASEURL + port
+
 // app configs
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(require('express-status-monitor')());
-app.use(flash());
+//app.use(require('connect-flash'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// import routes
+const writersRoutes = require('./routes/writer')
+app.use('/writers', writersRoutes)
+const articleRoutes = require('./routes/article')
+app.use('/article', articleRoutes)
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -22,21 +30,11 @@ app.use(flash());
 //
 //////////////////////////////////////////////////////////////////////
 app.get('/', function (req, res, next) {
+    console.log('/')
     const about = {
         title: 'Home - ' + process.env.NAME,
         templateName: 'public/index',
         devTest: 'dev_index',
-        name: process.env.NAME
-    };
-    return res.render('base', about);
-});
-
-app.get('/article', function (req, res, next) {
-    const id = req.query.id
-    const about = {
-        title: 'db.get(\'article id\')',
-        templateName: 'public/article',
-        devTest: 'dev_search',
         name: process.env.NAME
     };
     return res.render('base', about);
@@ -71,47 +69,15 @@ app.get('/donate', function (req, res, next) {
     return res.render('base', about);
 });
 
-//////////////////////////////////////////////////////////////////////
-//
-// writers link
-//
-//////////////////////////////////////////////////////////////////////
-app.get('/writers/new', function (req, res, next) {
-    const title = req.query.title
-    const body = req.query.body
-
-    const about = {
-        title: 'Donate - ' + process.env.NAME,
-        templateName: 'writers/editor',
-        devTest: 'dev_search',
-        name: process.env.NAME,
-        body: body,
-        title: title
-    };
-    return res.render('base', about);
-});
-
-app.get('/writers/publish', function (req, res, next) {
-    const title = req.query.title
-    const body = req.query.body
-    const about = {
-        title: 'Donate - ' + process.env.NAME,
-        templateName: 'writers/publisher',
-        devTest: 'dev_search',
-        name: process.env.NAME
-    };
-    return res.render('base', about);
-});
-
 console.log(`running on port ${port} -- ${site_port}`)
 
-// mongodb
-const mongoUrl = "mongodb://localhost:27017/centralized-news-dev-1";
-
-MongoClient.connect(mongoUrl, function(err, db) {
-    console.log("Database created!");
-    //db.close();
-});
+// mongoose
+mongoose.connect(
+    process.env.DB_HOST,
+    {   useNewUrlParser: true,
+        useUnifiedTopology: true  },
+    () => console.log('connected to DB')
+)
 
 // start a server
 app.listen(port)

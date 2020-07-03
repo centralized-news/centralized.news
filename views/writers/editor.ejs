@@ -17,33 +17,46 @@
             </p>
         </div>
     </div>
-    
+
     <div>
         <hr>
     </div>
-    
+
     <div class="editor-wrapper">
         <form action="/writers/publish">
-            <input class="title" type="text" name="title" value="<%- title %>" />
-            <input type="text" id="editor" placeholder="Body" name="body" value="<%- body %>" />
+            <input class="title" type="text" name="title" id="title" />
+            <input type="text" id="editor" placeholder="Body" name="body" />
         </form>
     </div>
-    <button class="btn btn-primary" style="float: left;">Publish</button>
+    <button id="post-btn" class="btn btn-primary" style="float: left;">Publish</button>
 
     <div>
     </div>
 
 </div>
 
-
+<!-- extra scripts not in base -->
 <script src="//cdn.jsdelivr.net/editor/0.1.0/editor.js"></script>
 <script src="//cdn.jsdelivr.net/editor/0.1.0/marked.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+    // creates the actual editor
     const editor = new Editor({
         element: document.getElementById('editor')
     });
 
+    // shows the editor
     editor.render();
+    const button = document.getElementById('post-btn');
 
-    const content = editor.codemirror.getValue();
+    // when submit button is press create a POST request to /article creating mongo stuff and consoling the result
+    $(button).click(function () {
+        $.post('/article', {
+            "title": document.getElementById('title').value,
+            "body": editor.codemirror.getValue(),
+            "userID": "vrgbvgrbb"
+        }, function (result) {
+            console.log(result);
+        })
+    });
 </script>
