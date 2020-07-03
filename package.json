@@ -4,7 +4,8 @@
   "description": "Centralized News is a news station that gives from both main point of viewse, Democratic, and Republican. We don't lean either way, that is why we will be interviewing random people and their views.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",

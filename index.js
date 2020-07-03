@@ -16,12 +16,27 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(require('express-status-monitor')());
 app.use(flash());
 
-// app routes
+//////////////////////////////////////////////////////////////////////
+//
+// general app links
+//
+//////////////////////////////////////////////////////////////////////
 app.get('/', function (req, res, next) {
     const about = {
         title: 'Home - ' + process.env.NAME,
         templateName: 'public/index',
         devTest: 'dev_index',
+        name: process.env.NAME
+    };
+    return res.render('base', about);
+});
+
+app.get('/article', function (req, res, next) {
+    const id = req.query.id
+    const about = {
+        title: 'db.get(\'article id\')',
+        templateName: 'public/article',
+        devTest: 'dev_search',
         name: process.env.NAME
     };
     return res.render('base', about);
@@ -38,6 +53,11 @@ app.get('/search', function (req, res, next) {
     return res.render('base', about);
 });
 
+//////////////////////////////////////////////////////////////////////
+//
+// company link
+//
+//////////////////////////////////////////////////////////////////////
 app.get('/donate', function (req, res, next) {
     const terms = req.query.q
     const about = {
@@ -51,6 +71,11 @@ app.get('/donate', function (req, res, next) {
     return res.render('base', about);
 });
 
+//////////////////////////////////////////////////////////////////////
+//
+// writers link
+//
+//////////////////////////////////////////////////////////////////////
 app.get('/writers/new', function (req, res, next) {
     const title = req.query.title
     const body = req.query.body
