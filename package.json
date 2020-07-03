@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/centralized-news/centralized.news#readme",
   "dependencies": {
+    "UserID": "^1.1.11",
     "connect-flash": "^0.1.1",
     "dotenv": "^8.2.0",
     "ejs": "^3.1.3",

@@ -51,6 +51,7 @@
 
     // when submit button is press create a POST request to /article creating mongo stuff and consoling the result
     $(button).click(function () {
+        $('#post-btn')[0].disabled = true
         $.post('/article', {
             "title": document.getElementById('title').value,
             "body": editor.codemirror.getValue(),
