@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<h1>Live</h1><hr>
+<%- include(`./nav`) %>
+<div class="container">
+    <div class="row">
+        <div class="post-meta-data card" style="width: 48%;">
+            <div class="row">
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h2 class="card-title">Livestream Toggle</h2>
+                    <p>Going live will put an embed on the <a href="/videos">videos</a> page of your Twitch stream. You can edit the username of the live stream in the .env file.</p>
+                    <button id="live-button" class="btn" onclick="post()"></button><br>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div style="width: 4%"></div>
+        <div class="card" style="width: 48%;">
+            <div class="col-md-12">
+                <div class="card-body">
+                    <h2 class="card-title">Livestream Preview</h2>
+                    <iframe style="width: 100%; height: 285px; border: none;" src="https://player.twitch.tv/?channel=<%- channelName %>&parent=localhost"></iframe><br><br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container">
+    <div class="row">
+    </div>
+</div>
+<script>
+    const button = document.getElementById
+
+    const live = <%-JSON.stringify(live)%>;
+    if (live === 'false') {
+        document.getElementById('live-button').innerHTML = 'Go live'
+        document.getElementById('live-button').classList.add('btn-success')
+    } else if (live === 'true') {
+        document.getElementById('live-button').innerHTML = 'Turn live off'
+        document.getElementById('live-button').classList.add('btn-danger')
+    }
+
+    function post() {
+        $.ajax({
+            type: "POST",
+            url: '/admin/live/' + live,
+        });
+        location.reload();
+    }
+</script>

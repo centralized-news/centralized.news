@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="http://cdn.jsdelivr.net/editor/0.1.0/editor.css">
+<style>
+    .container {
+        max-width: 680px;
+    }
+</style>
+
+<div>
+
+    <div>
+        <h5>
+            Producer
+        </h5>
+    </div>
+
+    <div>
+        <hr>
+    </div>
+
+    <div class="editor-wrapper">
+        <form action="">
+            <input class="title" type="text" name="title" id="title" placeholder="Title" /><hr>
+            <input style="width: 100%; border: none;" class="title" type="text" name="videoId" id="videoId" placeholder="YouTube video ID" /><br><hr>
+            <input style="width: 100%; border: none;" class="title" type="text" name="tags" id="tags" placeholder="Comma seperated tags (January,The Simpsons,december)" /><br><hr>
+        </form>
+    </div>
+    <span class="hidden" id="producerID"><%- producerID %></span>
+    <button id="post-btn" class="btn btn-primary" style="float: left;">Publish</button>
+
+    <div>
+    </div>
+
+</div>
+
+<!-- extra scripts not in base -->
+<script src="//cdn.jsdelivr.net/editor/0.1.0/editor.js"></script>
+<script src="//cdn.jsdelivr.net/editor/0.1.0/marked.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    const button = document.getElementById('post-btn');
+
+    // when submit button is press create a POST request to /article creating mongo stuff and consoling the result
+    $(button).click(function () {
+        if (document.getElementById('title').value === '') {
+            return alert('Please provide a title.')
+        } else if (document.getElementById('videoId').value === '') {
+            return alert('Please provide an YouTube video ID.')
+        } else if (document.getElementById('tags').value === '') {
+            return alert('Please provide at least one tag.')
+        } else {
+            //$('#post-btn')[0].disabled = true
+            $.post('/producers', {
+                "title": document.getElementById('title').value,
+                "userID": document.getElementById('producerID').value,
+                "tags": document.getElementById('tags').value,
+                "videoId": document.getElementById('videoId').value
+            }, function (result) {
+                console.log(result);
+                window.location.replace(`/videos`)
+            })
+        }
+    });
+</script>

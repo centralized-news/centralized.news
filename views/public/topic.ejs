@@ -1,0 +1,64 @@
+<pre id="postJSON" style="display: none;"><%- posts %></pre>
+
+<!-- Posts List Container -->
+<div class="card-columns" id="postsContainer">
+</div>
+
+<!-- Post Template (Just an example use-case) -->
+<template id="postTemplate">
+    <div class="">
+        <div class="post-meta-data card" style="width: 100%;">
+            <img width="100%" class="card-img post-image" alt="..." loading="lazy">
+                <div class="card-body">
+                    <h2><a class="post-title card-title"></a></h2>
+                    <p class="card-text"><a class="post-author"></a><p class="post-author-date"></p></p>
+                    <p class="post-tags text-muted"></p>
+            </div>
+        </div>
+    </div>
+    <br>
+</template>
+<!-- Have to keep this script in here, cant exclude it otherwise the <%%> variable wont set -->
+<script>
+    $(function () {
+        const
+            $container = $('#postsContainer'),
+
+            template = $('#postTemplate').html(),
+
+            getData = () => {
+                return <%-JSON.stringify(posts)%>;
+            },
+
+            updateSearchTags = () => {
+                const postsArray = getData();
+
+                $container.empty();
+
+                for (const post of postsArray) {
+                    const {
+                        title,
+                        userID,
+                        tags,
+                        _id,
+                        image,
+                        date,
+                        authorName
+                    } = post,
+                    $postEl = $(template);
+
+                    $postEl.find('.post-title').text(title);
+                    $postEl.find('.post-image').attr("src", image);
+                    $postEl.find('.post-title').attr("href", `/article?id=${_id}`);
+                    $postEl.find('.post-author').attr("href", `/user?id=${userID}`).text(authorName)
+                    $postEl.find('.post-author-date').text(date)
+                    $postEl.find('.post-tags').text('Tags: ' + tags);
+
+                    $postEl.appendTo($container);
+                    console.log(getData)
+                }
+            };
+
+        updateSearchTags();
+    });
+</script>

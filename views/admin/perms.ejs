@@ -1,0 +1,121 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<h1>Users</h1><hr>
+<%- include(`./nav`) %>
+<div class="container">
+    <div class="card-columns" id="postsContainer">
+    </div>
+</div>
+<template id="postTemplate">
+    <div style="width: 100%;">
+        <div class="post-meta-data card" style="width: 100%;">
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h2><a class="post-title card-title"></a></h2>
+                    <p class="card-text" width="100%"><a class="post-author"></a></p>
+                    <p class="card-text" width="100%"><a class="post-id"></a></p>
+                    <button type="button" class="btn btn-primary manage-button" data-toggle="modal" id="modalButton">Manage</button>
+                    
+                    <div class="modal fade modal-manage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title modal-author-post" id="exampleModalLabel">Manage</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="" method="post" class="hiddenForm">
+                                    <input class="hidden hiddenId" value="" name="userId">
+                                    <label>Delete user:</label>
+                                    <button type="submit" class="btn-sm btn-outline-danger" style="float: right;">Delete</button>
+                                </form><br>
+                                <form action="/users/writer" method="post" class="writerBool">
+                                    <input class="hidden hiddenId" value="" name="userId">
+                                    <label>Manage writer permissions:</label>
+                                    <input class="writerCheck hidden" value="" name="writerBool" type="checkbox" value="true" id="writerCheck">
+                                    <button type="submit" class="btn-sm btn-outline-danger writerPerms" id="" style="float: right;">Give writer</button>
+                                </form><br>
+                                <form action="/users/producer" method="post" class="producerBool">
+                                    <input class="hidden hiddenId" value="" name="userId">
+                                    <label>Manage producer permissions:</label>
+                                    <input class="writerCheck hidden" value="" name="writerBool" type="checkbox" value="true" id="writerCheck">
+                                    <button type="submit" class="btn-sm btn-outline-danger producerPerms" id="" style="float: right;">Give producer</button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+        
+        <br>
+    </div>
+</template>
+<script>
+    $(function () {
+        const
+            $container = $('#postsContainer'),
+
+            template = $('#postTemplate').html(),
+
+            getData = () => {
+                return <%-JSON.stringify(users)%>;
+            },
+
+            updateSearchTags = () => {
+                const postsArray = getData();
+
+                $container.empty();
+
+                for (const post of postsArray) {
+                    const {
+                        name,
+                        email,
+                        admin,
+                        _id,
+                        writer,
+                        producer
+                    } = post,
+                    $postEl = $(template);
+
+                    $postEl.find('.post-title').text(name);
+                    $postEl.find('.modal-author-post').text('Manage ' + name);
+                    $postEl.find('.post-title').attr("href", `/user?id=${_id}`);
+                    $postEl.find('.hiddenForm').attr("action", `/users/delete`);
+                    $postEl.find('.hiddenId').attr("value", `${_id}`);
+                    $postEl.find('.post-author').text('Email: ' + email)
+                    $postEl.find('.post-id').text('ID: ' + _id)
+                    $postEl.find('.manage-button').attr('data-target', '#m' + _id + 'm')
+                    $postEl.find('.modal-manage').attr('id', 'm' + _id + 'm')
+                    if (writer === false) {
+                        $postEl.find('.writerPerms').text('Give writer')
+                        $postEl.find('.writerBool').attr("action", `/users/writer/give`);
+                    }
+                    if (writer === true) {
+                        $postEl.find('.writerPerms').text('Revoke writer')
+                        $postEl.find('.writerBool').attr("action", `/users/writer/revoke`);
+                    }
+                    if (producer === false) {
+                        $postEl.find('.producerPerms').text('Give producer')
+                        $postEl.find('.producerBool').attr("action", `/users/producer/give`);
+                    }
+                    if (producer === true) {
+                        $postEl.find('.producerPerms').text('Revoke producer')
+                        $postEl.find('.producerBool').attr("action", `/users/producer/revoke`);
+                    }
+
+                    $postEl.appendTo($container);
+                    console.log(getData)
+                }
+            };
+
+        updateSearchTags();
+    });
+</script>

@@ -1,0 +1,70 @@
+<h1>Articles</h1><hr>
+<%- include(`./nav`) %>
+<div class="container">
+    <div class="card-columns" id="postsContainer">
+    </div>
+</div>
+<template id="postTemplate">
+    <div style="width: 100%;">
+        <div class="post-meta-data card" style="width: 100%;">
+            <img width="20% !important" class="card-img-top post-image" alt="image" loading="lazy">
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h2><a class="post-title card-title"></a></h2>
+                    <p class="card-text"><a class="post-author"></a></p>
+                    <p class="card-text"><a class="post-id"></a></p>
+                    <form action="" method="post" class="hiddenForm">
+                        <input class="hidden hiddenId" value="" name="articleId">
+                        <button type="submit" class="btn btn-outline-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+</template>
+<script>
+    $(function () {
+        const
+            $container = $('#postsContainer'),
+
+            template = $('#postTemplate').html(),
+
+            getData = () => {
+                return <%-JSON.stringify(posts)%>;
+            },
+
+            updateSearchTags = () => {
+                const postsArray = getData();
+
+                $container.empty();
+
+                for (const post of postsArray) {
+                    const {
+                        title,
+                        userID,
+                        tags,
+                        _id,
+                        image,
+                        date,
+                        authorName
+                    } = post,
+                    $postEl = $(template);
+
+                    $postEl.find('.post-title').text(title);
+                    $postEl.find('.post-image').attr("src", image);
+                    $postEl.find('.post-title').attr("href", `/article?id=${_id}`);
+                    $postEl.find('.post-title-delete').attr("href", `/article?id=${_id}`);
+                    $postEl.find('.hiddenForm').attr("action", `/article/delete`);
+                    $postEl.find('.hiddenId').attr("value", `${_id}`);
+                    $postEl.find('.post-author').attr("href", `/user?id=${userID}`).text(authorName)
+                    $postEl.find('.post-id').text("ID: " + _id)
+
+                    $postEl.appendTo($container);
+                    console.log(getData)
+                }
+            };
+
+        updateSearchTags();
+    });
+</script>

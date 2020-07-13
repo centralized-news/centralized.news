@@ -1,0 +1,71 @@
+<h1>Videos</h1><hr>
+<%- include(`./nav`) %>
+<div class="container">
+    <div class="card-columns" id="postsContainer">
+    </div>
+</div>
+<template id="postTemplate">
+    <div style="width: 100%;">
+        <div class="post-meta-data card" style="width: 100%;">
+            <div class="row no-gutters">
+            <iframe height="100%" class="card-img-top post-iframe" alt="video" loading="lazy" allowfullscreen></iframe>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h2><a class="post-title card-title"></a></h2>
+                    <p class="card-text"><a class="post-author"></a><p class="post-author-date"></p></p>
+                    <p class="post-tags text-muted"></p>
+                    <form action="" method="post" class="hiddenForm">
+                        <input class="hidden hiddenId" value="" name="videoId">
+                        <button type="submit" class="btn btn-outline-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+        <br>
+    </div>
+</template>
+<script>
+    $(function () {
+        const
+            $container = $('#postsContainer'),
+
+            template = $('#postTemplate').html(),
+
+            getData = () => {
+                return <%-JSON.stringify(videos)%>;
+            },
+
+            updateSearchTags = () => {
+                const postsArray = getData();
+
+                $container.empty();
+
+                for (const post of postsArray) {
+                    const {
+                        title,
+                        userID,
+                        tags,
+                        _id,
+                        date,
+                        authorName,
+                        videoId
+                    } = post,
+                    $postEl = $(template);
+
+                    $postEl.find('.post-title').text(title);
+                    $postEl.find('.post-iframe').attr("src", `http://youtube.com/embed/${videoId}`);
+                    $postEl.find('.post-author').attr("href", `/user?id=${userID}`).text(authorName)
+                    $postEl.find('.post-author-date').text(date)
+                    $postEl.find('.post-tags').text('Tags: ' + tags);
+                    $postEl.find('.hiddenForm').attr("action", `/videos/delete`);
+                    $postEl.find('.hiddenId').attr("value", `${_id}`);
+
+                    $postEl.appendTo($container);
+                    console.log(getData)
+                }
+            };
+
+        updateSearchTags();
+    });
+</script>

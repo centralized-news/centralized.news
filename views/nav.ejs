@@ -1,6 +1,9 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="/"><%- name %></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+<nav class="navbar navbar-expand-md navbar-dark bg fixed-top" style="background-color: rgb(0, 0, 0);">
+    <a class="navbar-brand" href="/">
+        <!-- you can replace the image tag with your name or add a space and have both -->
+        <img src="/images/logo.png" width="30" height="30" class="d-inline-block align-top" alt=""> <%- name %>
+    </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
         aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -8,19 +11,30 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#">Trending</a>
+                <a class="nav-link" href="/videos">Videos</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Business</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Opinions</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Topics
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="/topic/business">Business</a>
+                    <a class="dropdown-item" href="/topic/politics">Politics</a>
+                    <a class="dropdown-item" href="/topic/tech">Tech</a>
+                    <a class="dropdown-item" href="/topic/sports">Sports</a>
+                    <a class="dropdown-item" href="/topic/opinion">Opinion</a>
+                    <a class="dropdown-item" href="/topic">All topics</a>
+                    <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/topic/coronavirus">Coronavirus</a>
+                  <a class="dropdown-item" href="/topic/racism">Racism</a>
+                </div>
             </li>
         </ul>
-        <span class="nav-item navbar-nav"><a class="nav-link" href="/login">Login</a></span><br><br>
-        <form type="text" class="form-inline my-2 my-lg-0 bg-dark text-white" action="/search">
-            <input style="border:none;" class="form-control mr-sm-2 bg-dark text-white" placeholder="Search" aria-label="Search" id="searchBar" name="q">
+        <span class="nav-item navbar-nav"><a class="nav-link" href="/login">Login</a></span><div style="width:10px;"></div>
+        <form type="text" class="form-inline my-2 my-lg-0 text-white" action="/search" style="background-color: rgb(0, 0, 0);">
+            <input style="border: none; background-color: rgb(0, 0, 0);" class="form-control mr-sm-2 text-white" placeholder="Search" aria-label="Search" id="searchBar" name="q">
             <!--<button class="btn btn-primary my-2 my-sm-0" type="submit"><i class="fas fa-search"></i></button>-->
         </form>
     </div>
 </nav>
+</body>

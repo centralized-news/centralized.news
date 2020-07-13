@@ -9,14 +9,28 @@ const articleSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    date: {
-        type: Date,
-        default: Date.now
+    image: {
+        type: String,
+        required: true
     },
     userID: {
         type: String,
         required: true
+    },
+    tags: {
+        type: String,
+        required: true
+    },
+    authorName: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
 })
+
+articleSchema.index({ title: 'text', tags: 'text', body: 'text' });
 
 module.exports = mongoose.model('article', articleSchema)
